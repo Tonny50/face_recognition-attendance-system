@@ -1,0 +1,23 @@
+# Uncomment the next line to define a global platform for your project
+platform :ios, '10.0'
+use_frameworks!
+
+target 'Runner' do
+  # Pods for Runner
+  pod 'Firebase/Core'
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Firestore'
+  pod 'Firebase/Storage'
+
+  # Ensure Flutter dependencies are included
+  flutter_application_path = File.expand_path('..', __dir__)
+  load File.join(flutter_application_path, 'ios', 'Flutter', 'podhelper.rb')
+end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['APPLICATION_EXTENSION_API_ONLY'] = 'NO'
+    end
+  end
+end
